@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Stopwatch</h1>
+    <p id="display"></p>
+    <button id="start_btn">Start</button>
+    <button id="stop_btn">Stop</button>
+    <button id="reset_btn">Reset</button>
+</body>
+
+</html>
+<script>
+    //padStart,padEnd - String
+    let a = "hello";
+    console.log(a.padStart(10, 0));
+    console.log(a.padEnd(10, 0));
+
+    let b = 9348;
+    console.log(typeof b.toString());
+    console.log(b.toString().padEnd(8, "0"));
+
+    //stopwatch
+    let timer;
+    let seconds = 0;
+    let minutes = 0;
+    let hour = 0;
+
+    const updateDisplay = () => {
+        document.getElementById("display").innerHTML = `${hour.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`
+    }
+    document.getElementById("start_btn").addEventListener("click", () => {
+        timer = setInterval(() => {
+            seconds++;
+            if (seconds == 60) {
+                seconds = 0;
+                minutes++;
+            }
+            if (minutes == 60) {
+                minutes = 0;
+                hour++;
+            }
+            updateDisplay();
+        }, 1000)
+    })
+    document.getElementById("stop_btn").addEventListener("click", () => {
+        clearInterval(timer)
+        updateDisplay()
+    })
+    document.getElementById("reset_btn").addEventListener("click", () => {
+        clearInterval(timer)
+        seconds = 0;
+        minutes = 0;
+        hour = 0;
+        updateDisplay();
+    })
+    updateDisplay();
+</script>
